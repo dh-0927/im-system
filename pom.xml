@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.6.13</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>com.dh</groupId>
+    <artifactId>im-system</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>common</module>
+        <module>service</module>
+        <module>codec</module>
+        <module>tcp</module>
+        <module>persistence</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <mysql.version>8.0.32</mysql.version>
+        <mybatis-plus.version>3.5.2</mybatis-plus.version>
+        <!--        <hutool.version>5.0.6</hutool.version>-->
+        <redisson.version>3.15.6</redisson.version>
+        <snakeyaml.version>1.27</snakeyaml.version>
+        <!--        <protostuff-api>1.0.10</protostuff-api>-->
+        <zookeeper.version>0.1</zookeeper.version>
+        <!--        <apache.httpclient.version>4.5.9</apache.httpclient.version>-->
+        <rabbit.client.version>5.6.0</rabbit.client.version>
+        <apache.commons.version>3.12.0</apache.commons.version>
+        <!--        <fastjson.version>1.2.51</fastjson.version>-->
+        <springboot.version>2.6.13</springboot.version>
+        <netty.version>4.1.35.Final</netty.version>
+        <!--        <feign.version>8.18.0</feign.version>-->
+    </properties>
+
+    <dependencies>
+
+        <!-- fastjson -->
+        <!--        <dependency>-->
+        <!--            <groupId>com.alibaba</groupId>-->
+        <!--            <artifactId>fastjson</artifactId>-->
+        <!--        </dependency>-->
+
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${apache.commons.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.sgroschupf</groupId>
+            <artifactId>zkclient</artifactId>
+            <version>0.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-reload4j</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+    </dependencies>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>3.5.2</version>
+            </dependency>
+            <!-- protostuff依赖包 begin -->
+            <!--            <dependency>-->
+            <!--                <groupId>com.dyuproject.protostuff</groupId>-->
+            <!--                <artifactId>protostuff-api</artifactId>-->
+            <!--                <version>${protostuff-api}</version>-->
+            <!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>com.dyuproject.protostuff</groupId>-->
+            <!--                <artifactId>protostuff-core</artifactId>-->
+            <!--                <version>${protostuff-api}</version>-->
+            <!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>com.dyuproject.protostuff</groupId>-->
+            <!--                <artifactId>protostuff-runtime</artifactId>-->
+            <!--                <version>${protostuff-api}</version>-->
+            <!--            </dependency>-->
+            <!--            &lt;!&ndash; protostuff依赖包 end &ndash;&gt;-->
+
+            <!--            &lt;!&ndash; commons &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.apache.commons</groupId>-->
+            <!--                <artifactId>commons-lang3</artifactId>-->
+            <!--                <version>${apache.commons.version}</version>-->
+            <!--            </dependency>-->
+
+            <!--            &lt;!&ndash; fastjson &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>com.alibaba</groupId>-->
+            <!--                <artifactId>fastjson</artifactId>-->
+            <!--                <version>${fastjson.version}</version>-->
+            <!--            </dependency>-->
+
+            <!--            &lt;!&ndash; redis &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.springframework.boot</groupId>-->
+            <!--                <artifactId>spring-boot-starter-data-redis</artifactId>-->
+            <!--                <version>${springboot.version}</version>-->
+            <!--            </dependency>-->
+
+            <!--            &lt;!&ndash; rabbitmq &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.springframework.boot</groupId>-->
+            <!--                <artifactId>spring-boot-starter-amqp</artifactId>-->
+            <!--                <version>${springboot.version}</version>-->
+            <!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>com.rabbitmq</groupId>-->
+<!--                <artifactId>amqp-client</artifactId>-->
+<!--                <version>${rabbit.client.version}</version>-->
+<!--            </dependency>-->
+
+            <!--            &lt;!&ndash; mybatis plus &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>com.baomidou</groupId>-->
+            <!--                <artifactId>mybatis-plus-boot-starter</artifactId>-->
+            <!--                <version>${mybatis-plus.version}</version>-->
+            <!--            </dependency>-->
+
+            <!--            &lt;!&ndash;            <dependency>&ndash;&gt;-->
+            <!--            &lt;!&ndash;                <groupId>com.baomidou</groupId>&ndash;&gt;-->
+            <!--            &lt;!&ndash;                <artifactId>mybatis-plus-generator</artifactId>&ndash;&gt;-->
+            <!--            &lt;!&ndash;                <version>${mybatis-plus.version}</version>&ndash;&gt;-->
+            <!--            &lt;!&ndash;            </dependency>&ndash;&gt;-->
+
+            <!--            &lt;!&ndash; 参数校验 &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.hibernate</groupId>-->
+            <!--                <artifactId>hibernate-validator</artifactId>-->
+            <!--                <version>${hibernate-validator.version}</version>-->
+            <!--            </dependency>-->
+
+            <!--            &lt;!&ndash; redisson &ndash;&gt;-->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+
+            <!--            &lt;!&ndash; yaml &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.yaml</groupId>-->
+            <!--                <artifactId>snakeyaml</artifactId>-->
+            <!--                <version>${snakeyaml.version}</version>-->
+            <!--            </dependency>-->
+
+            <!--            &lt;!&ndash; hutool &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>cn.hutool</groupId>-->
+            <!--                <artifactId>hutool-all</artifactId>-->
+            <!--                <version>${hutool.version}</version>-->
+            <!--            </dependency>-->
+
+            <!--            <dependency>-->
+            <!--                <groupId>org.apache.httpcomponents</groupId>-->
+            <!--                <artifactId>httpclient</artifactId>-->
+            <!--                <version>${apache.httpclient.version}</version>-->
+            <!--            </dependency>-->
+
+            <!--            &lt;!&ndash;  zkClient &ndash;&gt;-->
+
+            <!--            &lt;!&ndash; netty &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>io.netty</groupId>-->
+            <!--                <artifactId>netty-all</artifactId>-->
+            <!--                <version>${netty.version}</version>-->
+            <!--            </dependency>-->
+
+            <!--            &lt;!&ndash; feign调用依赖 &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>com.netflix.feign</groupId>-->
+            <!--                <artifactId>feign-core</artifactId>-->
+            <!--                <version>${feign.version}</version>-->
+            <!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>com.netflix.feign</groupId>-->
+            <!--                <artifactId>feign-jackson</artifactId>-->
+            <!--                <version>${feign.version}</version>-->
+            <!--            </dependency>-->
+
+        </dependencies>
+
+
+    </dependencyManagement>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

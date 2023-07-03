@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dh.im.service.friendship.dao.mapper.ImFriendShipMapper">
+
+    <resultMap id="entityMapper" type="com.dh.im.service.friendship.dao.ImFriendShipEntity">
+        <id property="appId" column="app_id"/>
+        <id property="fromId" column="from_id"/>
+        <id property="toId" column="to_id"/>
+        <result property="remark" column="remark"/>
+        <result property="status" column="status"/>
+        <result property="black" column="black"/>
+        <result property="createTime" column="create_time"/>
+        <result property="friendSequence" column="friend_sequence"/>
+        <result property="blackSequence" column="black_sequence"/>
+        <result property="addSource" column="add_source"/>
+        <result property="extra" column="extra"/>
+    </resultMap>
+
+    <resultMap id="respMapper" type="com.dh.im.service.friendship.model.resp.CheckFriendShipResp">
+        <id property="fromId" column="from_id"/>
+        <id property="toId" column="to_id"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <select id="checkFriendShipBlackSingle" resultMap="respMapper"
+            resultType="com.dh.im.service.friendship.model.resp.CheckFriendShipResp">
+        select from_id, to_id, if(black = 1, 1, 0) as status from im_friendship
+        where from_id = #{fromId}
+        and to_id in
+        <foreach collection="toIds" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+        and app_id = #{appId}
+    </select>
+
+    <select id="checkFriendShipBlackBoth" resultMap="respMapper"
+            resultType="com.dh.im.service.friendship.model.resp.CheckFriendShipResp">
+        SELECT a.from_id AS from_id,
+        a.to_id AS to_id,
+        (CASE
+        WHEN a.black = 1 AND b.black = 1 THEN 1
+        WHEN a.black = 1 AND b.black != 1 THEN 2
+        WHEN a.black != 1 AND b.black = 1 THEN 3
+        WHEN a.black != 1 AND b.black != 1 THEN 4
+        END) as status
+        FROM im_friendship AS a
+        JOIN im_friendship AS b
+        ON a.from_id = b.to_id AND a.to_id = b.from_id
+        WHERE a.app_id = #{appId}
+        AND a.from_id = #{fromId}
+        AND a.to_id IN
+        <foreach collection="toIds" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="checkFriendShipSingle" resultMap="respMapper"
+            resultType="com.dh.im.service.friendship.model.resp.CheckFriendShipResp">
+        select from_id, to_id, if(status = 1, 1, 0) as status from im_friendship
+        where from_id = #{fromId}
+        and to_id in
+        <foreach collection="toIds" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+        and app_id = #{appId}
+    </select>
+    <select id="checkFriendShipBoth" resultMap="respMapper"
+            resultType="com.dh.im.service.friendship.model.resp.CheckFriendShipResp">
+        SELECT a.from_id AS from_id,
+        a.to_id AS to_id,
+        (CASE
+        WHEN a.status = 1 AND b.status = 1 THEN 1
+        WHEN a.status = 1 AND b.status != 1 THEN 2
+        WHEN a.status != 1 AND b.status = 1 THEN 3
+        WHEN a.status != 1 AND b.status != 1 THEN 4
+        END) as status
+        FROM im_friendship AS a
+        JOIN im_friendship AS b
+        ON a.from_id = b.to_id AND a.to_id = b.from_id
+        WHERE a.app_id = #{appId}
+        AND a.from_id = #{fromId}
+        AND a.to_id IN
+        <foreach collection="toIds" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+</mapper>

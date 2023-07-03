@@ -1,0 +1,43 @@
+spring:
+  main:
+    allow-circular-references: true
+  profiles:
+    # 开发环境
+    active: dev
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/im-core?serverTimezone=UTC
+    username: root
+    password: 123456
+
+  redis:
+    host: 192.168.199.100
+    port: 6379
+    jedis:
+      pool:
+        max-active: 100
+        max-idle: 100
+        max-wait: 1000
+        min-idle: 10
+  rabbitmq:
+    host: localhost
+    port: 5672
+    addresses: localhost
+    username: guest
+    password: guest
+
+
+# 日志
+#logging:
+#  config: classpath:logback-spring.xml
+
+# Mybatis-Plus
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapper/*.xml
+  global-config:
+    db-config:
+      update-strategy: not_empty
+  type-aliases-package: com.dh.message.dao
